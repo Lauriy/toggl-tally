@@ -2,7 +2,8 @@ from csv import reader
 
 data = {}
 header_row = None
-with open('Toggl_time_entries_2017-08-01_to_2017-08-31.csv', 'r') as f:
+total = 0
+with open('Toggl_time_entries_2017-10-01_to_2017-10-31.csv', 'r', encoding='utf8') as f:
     for row in reader(f, delimiter=','):
         if not header_row:
             header_row = row
@@ -16,6 +17,10 @@ with open('Toggl_time_entries_2017-08-01_to_2017-08-31.csv', 'r') as f:
             data[description] += duration
         else:
             data[description] = duration
+        total += duration
 
 for k, v in data.items():
     print('%s - %s minutes' % (k, v))
+
+print ('-----')
+print ('Total hours %s' % (total / 60.0))
